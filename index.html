@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Holland Code — Career Personality Assessment</title>
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+<main class="page">
+  <nav class="nav">
+    <div class="nav-logo">
+      <div class="dot">H</div>
+      Holland Code
+    </div>
+    <div class="nav-meta">Career Studies Club · 2026</div>
+  </nav>
+
+  <section class="hero">
+    <div>
+      <span class="eyebrow">Career Personality Assessment</span>
+      <h1>Discover the work<br>that fits <span class="accent">how you think.</span></h1>
+      <p class="lede">
+        Based on the six-type framework developed by psychologist John L. Holland, this short assessment reveals how you naturally work and solve problems — and which careers tend to fit minds like yours.
+      </p>
+
+      <div class="cta-block">
+        <label class="label" for="nameInput">Enter your name to begin</label>
+        <input type="text" id="nameInput" class="input" placeholder="e.g. Alex Kim" autocomplete="off" />
+        <button id="startBtn" class="btn" disabled>
+          Start Assessment <span>→</span>
+        </button>
+      </div>
+    </div>
+
+    <aside class="info-grid">
+      <div class="info-card">
+        <div class="icon">⏱</div>
+        <div>
+          <h4>About 3 minutes</h4>
+          <p>Thirty short statements, rated on a 5-point scale.</p>
+        </div>
+      </div>
+      <div class="info-card">
+        <div class="icon">⬢</div>
+        <div>
+          <h4>RIASEC framework</h4>
+          <p>Realistic · Investigative · Artistic · Social · Enterprising · Conventional.</p>
+        </div>
+      </div>
+      <div class="info-card">
+        <div class="icon">🔒</div>
+        <div>
+          <h4>Private results</h4>
+          <p>Your results are yours alone. Only instructors see the class aggregate.</p>
+        </div>
+      </div>
+    </aside>
+  </section>
+
+  <footer class="footer">
+    Press <strong>Enter</strong> to begin · Career Studies Club
+  </footer>
+</main>
+
+<script>
+  const input = document.getElementById('nameInput');
+  const btn = document.getElementById('startBtn');
+  input.focus();
+
+  const check = () => { btn.disabled = input.value.trim().length < 2; };
+  input.addEventListener('input', check);
+
+  const start = () => {
+    const name = input.value.trim();
+    if (name.length < 2) return;
+    sessionStorage.setItem('holland_name', name);
+    sessionStorage.removeItem('holland_result');
+    window.location.href = 'quiz.html';
+  };
+
+  btn.addEventListener('click', start);
+  input.addEventListener('keydown', (e) => { if (e.key === 'Enter') start(); });
+</script>
+</body>
+</html>
