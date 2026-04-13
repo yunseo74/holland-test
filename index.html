@@ -1,0 +1,1215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Holland Code — Career Personality Assessment</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --primary: #1A73E8;
+  --primary-dark: #1557B0;
+  --primary-light: #E8F0FE;
+  --primary-glow: rgba(26, 115, 232, 0.15);
+  --bg: #F5F7FA;
+  --surface: #FFFFFF;
+  --surface-alt: #FAFBFC;
+  --ink: #0F172A;
+  --ink-soft: #475569;
+  --ink-muted: #94A3B8;
+  --border: #E5E7EB;
+  --border-strong: #CBD5E1;
+  --danger: #EF4444;
+  --radius: 12px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.04), 0 1px 3px rgba(15, 23, 42, 0.06);
+  --shadow: 0 2px 4px rgba(15, 23, 42, 0.04), 0 6px 20px rgba(15, 23, 42, 0.06);
+  --shadow-blue: 0 10px 30px rgba(26, 115, 232, 0.25);
+  --font: 'Plus Jakarta Sans', -apple-system, system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+h1, h2, h3, h4 {
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  color: var(--ink);
+}
+h1 { font-size: clamp(2.2rem, 5vw, 3.75rem); font-weight: 800; letter-spacing: -0.035em; }
+h3 { font-size: 1.25rem; }
+
+.page-view { display: none; }
+.page-view.active { display: block; }
+
+.page {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 1.5rem clamp(1rem, 3vw, 2.5rem) 3rem;
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0 2rem;
+}
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--ink);
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-family: inherit;
+}
+.nav-logo .dot {
+  width: 32px; height: 32px;
+  background: var(--primary);
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+  color: white;
+  font-size: 0.95rem;
+  font-weight: 800;
+  box-shadow: var(--shadow-blue);
+}
+.nav-meta {
+  font-size: 0.8rem;
+  color: var(--ink-muted);
+  font-weight: 500;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-family: var(--font);
+  font-size: 0.95rem;
+  font-weight: 600;
+  background: var(--primary);
+  color: white;
+  padding: 0.85rem 1.75rem;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: var(--shadow-blue);
+}
+.btn:hover:not(:disabled) {
+  background: var(--primary-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 12px 32px rgba(26, 115, 232, 0.32);
+}
+.btn:active:not(:disabled) { transform: translateY(0); }
+.btn:disabled {
+  background: var(--border-strong);
+  color: white;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+.btn-outline {
+  background: var(--surface);
+  color: var(--ink-soft);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border);
+}
+.btn-outline:hover:not(:disabled) {
+  color: var(--primary);
+  border-color: var(--primary);
+  background: var(--surface);
+}
+
+.input {
+  width: 100%;
+  font-family: var(--font);
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem 1.25rem;
+  outline: none;
+  transition: all 0.2s ease;
+}
+.input::placeholder { color: var(--ink-muted); font-weight: 400; }
+.input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 4px var(--primary-glow);
+}
+
+.hero {
+  background: var(--surface);
+  border-radius: var(--radius-xl);
+  padding: clamp(2rem, 5vw, 4rem);
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
+}
+@media (min-width: 900px) {
+  .hero { grid-template-columns: 1.3fr 1fr; gap: 4rem; }
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--primary);
+  background: var(--primary-light);
+  padding: 0.4rem 0.85rem;
+  border-radius: 999px;
+  margin-bottom: 1.5rem;
+}
+.eyebrow::before {
+  content: "";
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--primary);
+}
+.hero h1 { margin-bottom: 1.25rem; }
+.hero h1 .accent { color: var(--primary); }
+.hero p.lede {
+  font-size: 1.05rem;
+  color: var(--ink-soft);
+  line-height: 1.65;
+  max-width: 54ch;
+  margin-bottom: 2.5rem;
+}
+
+.cta-block {
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+}
+.cta-block .label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+  margin-bottom: 0.6rem;
+  display: block;
+}
+.cta-block .btn { width: 100%; margin-top: 1rem; }
+.cta-error { color: var(--danger); font-size: 0.85rem; margin-top: 0.75rem; }
+
+.info-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  align-content: start;
+}
+.info-card {
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+.info-card .icon {
+  width: 44px; height: 44px;
+  background: var(--primary-light);
+  color: var(--primary);
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  font-size: 1.25rem;
+}
+.info-card h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.2rem; }
+.info-card p { font-size: 0.82rem; color: var(--ink-soft); line-height: 1.5; }
+
+.footer {
+  margin-top: 2rem;
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--ink-muted);
+}
+
+/* ============== QUIZ ============== */
+.quiz-shell {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 2rem clamp(1rem, 3vw, 2rem);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.quiz-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.25rem;
+}
+.quiz-top .count { font-size: 0.88rem; font-weight: 600; color: var(--ink-soft); }
+.quiz-top .count .now { color: var(--primary); font-weight: 700; font-size: 1rem; }
+.quiz-top .who { font-size: 0.82rem; color: var(--ink-muted); font-weight: 500; }
+
+.progress-bar {
+  height: 8px;
+  background: var(--border);
+  border-radius: 999px;
+  overflow: hidden;
+  margin-bottom: 3rem;
+}
+.progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary), #4A90F5);
+  border-radius: 999px;
+  width: var(--pct, 0%);
+  transition: width 0.5s cubic-bezier(.65, 0, .35, 1);
+}
+
+.q-card {
+  background: var(--surface);
+  border-radius: var(--radius-xl);
+  padding: clamp(2rem, 5vw, 3.5rem) clamp(1.5rem, 4vw, 3rem);
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.q-slide { animation: slideIn 0.4s cubic-bezier(.25, .8, .3, 1); }
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(24px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+.q-slide-back { animation: slideInBack 0.4s cubic-bezier(.25, .8, .3, 1); }
+@keyframes slideInBack {
+  from { opacity: 0; transform: translateX(-24px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.q-tag {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--primary);
+  letter-spacing: 0.05em;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+}
+.q-text {
+  font-size: clamp(1.35rem, 3.5vw, 1.85rem);
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+  margin-bottom: 2.5rem;
+}
+
+.likert {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.likert-opt {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem 1.25rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: var(--font);
+  font-size: 0.98rem;
+  font-weight: 500;
+  color: var(--ink-soft);
+  text-align: left;
+  width: 100%;
+}
+.likert-opt:hover {
+  border-color: var(--primary);
+  background: var(--primary-light);
+  color: var(--ink);
+}
+.likert-opt .num {
+  width: 36px; height: 36px;
+  border-radius: 10px;
+  background: var(--surface-alt);
+  border: 1.5px solid var(--border);
+  display: grid;
+  place-items: center;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--ink-soft);
+  flex-shrink: 0;
+  transition: all 0.2s;
+}
+.likert-opt:hover .num {
+  background: white;
+  border-color: var(--primary);
+  color: var(--primary);
+}
+.likert-opt.selected {
+  border-color: var(--primary);
+  background: var(--primary-light);
+  color: var(--ink);
+}
+.likert-opt.selected .num {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: white;
+}
+
+.quiz-nav {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 2.5rem;
+  padding-top: 1.75rem;
+  border-top: 1px solid var(--border);
+}
+
+/* ============== RESULT ============== */
+.result-hero-card {
+  background: linear-gradient(135deg, var(--primary) 0%, #4A90F5 100%);
+  border-radius: var(--radius-xl);
+  padding: clamp(2rem, 5vw, 3.5rem);
+  color: white;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(26, 115, 232, 0.3);
+  margin-bottom: 1.5rem;
+}
+.result-hero-card::before {
+  content: "";
+  position: absolute;
+  top: -50%; right: -20%;
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(255,255,255,0.12) 0%, transparent 60%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+.result-hero-card::after {
+  content: "";
+  position: absolute;
+  bottom: -30%; left: -10%;
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 60%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+.result-hero-inner {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  align-items: center;
+}
+@media (min-width: 800px) {
+  .result-hero-inner { grid-template-columns: 1.4fr 1fr; }
+}
+.result-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(255,255,255,0.18);
+  backdrop-filter: blur(8px);
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  margin-bottom: 1.25rem;
+}
+.result-hero-inner h1 {
+  color: white;
+  font-size: clamp(2.5rem, 6vw, 4.25rem);
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  margin-bottom: 0.5rem;
+  line-height: 1;
+}
+.result-hero-inner .tagline {
+  font-size: 1.1rem;
+  color: rgba(255,255,255,0.9);
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+}
+.result-code-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.25);
+  backdrop-filter: blur(8px);
+  padding: 0.7rem 1.2rem;
+  border-radius: 14px;
+}
+.result-code-chip .lbl {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(255,255,255,0.75);
+}
+.result-code-chip .code {
+  font-size: 1.4rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+}
+.result-hero-visual {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.result-hero-visual .big-letter {
+  font-size: clamp(8rem, 18vw, 14rem);
+  font-weight: 800;
+  line-height: 1;
+  color: rgba(255,255,255,0.95);
+  letter-spacing: -0.05em;
+  text-shadow: 0 10px 40px rgba(0,0,0,0.15);
+}
+
+.result-body {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+@media (min-width: 900px) {
+  .result-body { grid-template-columns: 1fr 1fr; }
+}
+
+.card {
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+}
+.card h3 {
+  font-size: 1.15rem;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+.card h3::before {
+  content: "";
+  width: 4px;
+  height: 20px;
+  background: var(--primary);
+  border-radius: 2px;
+}
+.card p {
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+  line-height: 1.65;
+}
+.card ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+.card ul li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  font-size: 0.92rem;
+  color: var(--ink-soft);
+  line-height: 1.55;
+}
+.card ul li::before {
+  content: "✓";
+  color: var(--primary);
+  font-weight: 700;
+  flex-shrink: 0;
+  font-size: 0.82rem;
+  background: var(--primary-light);
+  width: 22px; height: 22px;
+  display: grid; place-items: center;
+  border-radius: 50%;
+  margin-top: 0.05rem;
+}
+.card ul.growth li::before {
+  content: "→";
+  background: #FEF3C7;
+  color: #D97706;
+}
+
+.tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.tag {
+  background: var(--primary-light);
+  color: var(--primary-dark);
+  padding: 0.5rem 0.95rem;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.card-wide { grid-column: 1 / -1; }
+
+/* ============== HEXAGON ============== */
+.hex-wrap {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  align-items: center;
+  margin-top: 0.5rem;
+}
+@media (min-width: 700px) {
+  .hex-wrap { grid-template-columns: auto 1fr; gap: 2.5rem; }
+}
+.hex-svg-wrap { display: flex; justify-content: center; }
+.hex-svg { width: 100%; max-width: 360px; height: auto; overflow: visible; }
+.hex-grid { fill: none; stroke: var(--border); stroke-width: 1; }
+.hex-grid.outer { stroke: var(--border-strong); }
+.hex-axis { stroke: var(--border); stroke-width: 1; }
+.hex-data {
+  fill: var(--primary);
+  fill-opacity: 0.18;
+  stroke: var(--primary);
+  stroke-width: 2.5;
+  stroke-linejoin: round;
+  animation: drawPoly 0.9s cubic-bezier(.25,.8,.3,1) both;
+  transform-origin: center;
+}
+@keyframes drawPoly {
+  from { opacity: 0; transform: scale(0.6); }
+  to { opacity: 1; transform: scale(1); }
+}
+.hex-point {
+  fill: white;
+  stroke: var(--primary);
+  stroke-width: 2.5;
+}
+.hex-label { font-family: var(--font); font-size: 13px; font-weight: 700; fill: var(--ink); }
+.hex-label-sub { font-family: var(--font); font-size: 10px; font-weight: 500; fill: var(--ink-muted); }
+
+.hex-legend {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  text-align: left;
+}
+.hex-legend-row {
+  display: grid;
+  grid-template-columns: 28px 1fr 40px;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.6rem 0.85rem;
+  border-radius: 10px;
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+}
+.hex-legend-row.top {
+  background: var(--primary-light);
+  border-color: var(--primary);
+}
+.hex-legend-row .lt {
+  width: 28px; height: 28px;
+  background: var(--border);
+  color: var(--ink-soft);
+  border-radius: 7px;
+  display: grid;
+  place-items: center;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+.hex-legend-row.top .lt { background: var(--primary); color: white; }
+.hex-legend-row .nm { font-size: 0.88rem; font-weight: 600; color: var(--ink); }
+.hex-legend-row .sc { font-size: 0.95rem; font-weight: 700; color: var(--primary); text-align: right; }
+
+.result-actions {
+  margin-top: 2rem;
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.loading {
+  display: inline-block;
+  width: 14px; height: 14px;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+</style>
+</head>
+<body>
+
+<!-- LANDING -->
+<div class="page-view" id="view-landing">
+  <main class="page">
+    <nav class="nav">
+      <button class="nav-logo" onclick="navigate('landing')">
+        <div class="dot">H</div>
+        Holland Code
+      </button>
+      <div class="nav-meta">Career Studies Club · 2026</div>
+    </nav>
+
+    <section class="hero">
+      <div>
+        <span class="eyebrow">Career Personality Assessment</span>
+        <h1>Discover the work<br>that fits <span class="accent">how you think.</span></h1>
+        <p class="lede">
+          Based on the six-type framework developed by psychologist John L. Holland, this short assessment reveals how you naturally work and solve problems — and which careers tend to fit minds like yours.
+        </p>
+
+        <div class="cta-block">
+          <label class="label" for="nameInput">Enter your name to begin</label>
+          <input type="text" id="nameInput" class="input" placeholder="e.g. Alex Kim" autocomplete="off" />
+          <button id="startBtn" class="btn" disabled>
+            Start Assessment <span>→</span>
+          </button>
+          <div id="startError" class="cta-error" style="display:none;"></div>
+        </div>
+      </div>
+
+      <aside class="info-grid">
+        <div class="info-card">
+          <div class="icon">⏱</div>
+          <div>
+            <h4>About 3 minutes</h4>
+            <p>Thirty short statements, rated on a 5-point scale.</p>
+          </div>
+        </div>
+        <div class="info-card">
+          <div class="icon">⬢</div>
+          <div>
+            <h4>RIASEC framework</h4>
+            <p>Realistic · Investigative · Artistic · Social · Enterprising · Conventional.</p>
+          </div>
+        </div>
+        <div class="info-card">
+          <div class="icon">🔒</div>
+          <div>
+            <h4>Private results</h4>
+            <p>Your results are yours alone. Only instructors see the class aggregate.</p>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <footer class="footer">Press <strong>Enter</strong> to begin</footer>
+  </main>
+</div>
+
+<!-- QUIZ -->
+<div class="page-view" id="view-quiz">
+  <main class="quiz-shell">
+    <header class="quiz-top">
+      <div class="count">Question <span class="now" id="qCurrent">1</span> of 30</div>
+      <div class="who" id="userLabel"></div>
+    </header>
+    <div class="progress-bar"><div class="progress-bar-fill" id="progressFill"></div></div>
+
+    <section class="q-card">
+      <div id="qSlide" class="q-slide">
+        <div class="q-tag" id="qTag">Statement 1</div>
+        <h2 class="q-text" id="qText">Loading…</h2>
+        <div class="likert" id="likert"></div>
+      </div>
+      <div class="quiz-nav">
+        <button id="backBtn" class="btn btn-outline" disabled>← Back</button>
+        <button id="nextBtn" class="btn" disabled>Next →</button>
+      </div>
+    </section>
+  </main>
+</div>
+
+<!-- RESULT -->
+<div class="page-view" id="view-result">
+  <main class="page">
+    <nav class="nav">
+      <button class="nav-logo" onclick="navigate('landing')">
+        <div class="dot">H</div>
+        Holland Code
+      </button>
+      <div class="nav-meta" id="dateLabel"></div>
+    </nav>
+    <div id="resultRoot"></div>
+  </main>
+</div>
+
+<script type="module">
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
+import { getFirestore, collection, addDoc, doc, updateDoc, serverTimestamp }
+  from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
+
+// ============================================================
+//  🔧 FIREBASE CONFIG — PASTE YOUR VALUES HERE
+// ============================================================
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_PROJECT.firebaseapp.com",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_PROJECT.appspot.com",
+  messagingSenderId: "YOUR_SENDER_ID",
+  appId: "YOUR_APP_ID"
+};
+
+// ============================================================
+//  QUESTIONS (30 total, 5 per type)
+// ============================================================
+const questions = [
+  { type: "R", text: "I enjoy working with tools, machines, or physical equipment." },
+  { type: "R", text: "I like building, assembling, or repairing things with my hands." },
+  { type: "R", text: "I prefer being outdoors and active over sitting at a desk." },
+  { type: "R", text: "I'm curious about how mechanical and electronic things work." },
+  { type: "R", text: "I enjoy sports, physical challenges, and hands-on training." },
+  { type: "I", text: "I love solving complex problems and logical puzzles." },
+  { type: "I", text: "I'm fascinated by scientific research, theories, and experiments." },
+  { type: "I", text: "I enjoy analyzing data to uncover patterns and explanations." },
+  { type: "I", text: "I often read or watch content about how the world works." },
+  { type: "I", text: "I prefer thinking deeply on my own over group brainstorming." },
+  { type: "A", text: "I express myself through art, music, writing, or design." },
+  { type: "A", text: "I value originality and creative freedom over tradition." },
+  { type: "A", text: "I'm drawn to things that are visually beautiful or unusual." },
+  { type: "A", text: "I enjoy imagining new ideas that break from convention." },
+  { type: "A", text: "I like performing, showcasing, or sharing creative work." },
+  { type: "S", text: "I enjoy helping others work through personal problems." },
+  { type: "S", text: "I like teaching, tutoring, or explaining things to people." },
+  { type: "S", text: "I find meaning in volunteering and community service." },
+  { type: "S", text: "I'm a good listener and people come to me for support." },
+  { type: "S", text: "I prefer collaborative teamwork over solo work." },
+  { type: "E", text: "I enjoy leading groups and making decisions for a team." },
+  { type: "E", text: "I'm confident persuading others to see my point of view." },
+  { type: "E", text: "I get excited about starting new ventures or projects." },
+  { type: "E", text: "I thrive in competitive, high-stakes environments." },
+  { type: "E", text: "I'm willing to take risks to pursue ambitious goals." },
+  { type: "C", text: "I enjoy organizing information and keeping things in order." },
+  { type: "C", text: "I prefer clear rules, structure, and predictable routines." },
+  { type: "C", text: "I'm detail-oriented and precise in everything I do." },
+  { type: "C", text: "I like working systematically with numbers, data, or records." },
+  { type: "C", text: "I find satisfaction in completing routine tasks accurately." },
+];
+
+const typeData = {
+  R: { code: "R", name: "The Builder", subtitle: "Realistic", tagline: "Hands-on, grounded, practical.",
+    description: "Builders are doers. You're drawn to the tangible world — tools, machines, materials, the outdoors. You learn best by making and fixing, and you trust what you can see, touch, and test. You value practical skill over theory and competence over charisma.",
+    strengths: ["Mechanical and technical aptitude", "Physical coordination and stamina", "Practical problem-solving", "Reliability and follow-through"],
+    growth: ["Practice articulating your ideas in writing and presentations", "Stay open to abstract and theoretical thinking", "Develop collaborative and interpersonal communication", "Explore the 'why' behind the 'how'"],
+    careers: ["Engineer", "Architect", "Pilot", "Surgeon", "Industrial designer", "Athlete or coach", "Agricultural scientist"] },
+  I: { code: "I", name: "The Investigator", subtitle: "Investigative", tagline: "Curious, analytical, independent.",
+    description: "Investigators are thinkers. You're wired to ask questions, gather evidence, and build mental models of how things work. You thrive when given hard problems and space to concentrate, and you'd rather be right than popular.",
+    strengths: ["Analytical and critical thinking", "Intellectual curiosity and depth", "Independent research ability", "Precision and rigor"],
+    growth: ["Translate complex ideas into accessible language", "Practice acting before every variable is certain", "Build teamwork and leadership muscles", "Balance analysis with emotional awareness"],
+    careers: ["Research scientist", "Data analyst", "Doctor", "Software engineer", "Economist", "Psychologist", "Mathematician"] },
+  A: { code: "A", name: "The Creator", subtitle: "Artistic", tagline: "Expressive, original, imaginative.",
+    description: "Creators are artists at heart. You see things others miss, and you feel a pull to make something that didn't exist before. Structure can feel stifling; you do your best work when you're free to experiment and follow your instincts.",
+    strengths: ["Creative vision and originality", "Aesthetic sensitivity", "Emotional and expressive intelligence", "Willingness to break conventions"],
+    growth: ["Build discipline around deadlines and routines", "Accept constructive feedback without taking it personally", "Learn the business side of creative work", "Balance self-expression with audience needs"],
+    careers: ["Designer", "Writer", "Filmmaker", "Musician", "Architect", "Art director", "Game developer"] },
+  S: { code: "S", name: "The Helper", subtitle: "Social", tagline: "Empathetic, generous, people-centered.",
+    description: "Helpers are the glue of any group. You're genuinely interested in other people, and your happiest work involves making someone's life better. You lead through care and trust, and you notice what others overlook.",
+    strengths: ["Empathy and active listening", "Teaching and mentoring", "Team cooperation", "Conflict resolution"],
+    growth: ["Set boundaries to protect your own energy", "Practice saying no without guilt", "Develop assertiveness alongside kindness", "Build technical or analytical skills to broaden your toolkit"],
+    careers: ["Teacher", "Counselor", "Nurse", "Social worker", "HR specialist", "Therapist", "Community organizer"] },
+  E: { code: "E", name: "The Leader", subtitle: "Enterprising", tagline: "Bold, persuasive, ambitious.",
+    description: "Leaders are builders of momentum. You're comfortable out front, and you see opportunities where others see risk. You're energized by challenge and competition, and you measure yourself by impact and outcomes.",
+    strengths: ["Leadership and initiative", "Persuasion and negotiation", "Decisiveness under pressure", "Strategic thinking"],
+    growth: ["Slow down to listen before deciding", "Build patience for detail work", "Share credit generously", "Develop empathy for quieter voices on the team"],
+    careers: ["Entrepreneur", "Executive", "Lawyer", "Marketing director", "Sales leader", "Politician", "Venture capitalist"] },
+  C: { code: "C", name: "The Organizer", subtitle: "Conventional", tagline: "Methodical, precise, dependable.",
+    description: "Organizers keep the world running. You bring order to complexity, and you take pride in getting the details right. You're the person others trust with the numbers, the records, and the plan — because you never drop the ball.",
+    strengths: ["Attention to detail", "Systematic thinking", "Reliability and accuracy", "Efficiency and process discipline"],
+    growth: ["Embrace ambiguity and change", "Practice creative, out-of-the-box thinking", "Delegate and trust others with tasks", "Zoom out from details to see the bigger picture"],
+    careers: ["Accountant", "Financial analyst", "Auditor", "Operations manager", "Paralegal", "Database administrator", "Logistics coordinator"] },
+};
+const typeOrder = ["R", "I", "A", "S", "E", "C"];
+
+// ============================================================
+//  FIREBASE INIT
+// ============================================================
+let db = null;
+try {
+  if (firebaseConfig.apiKey && firebaseConfig.apiKey !== 'YOUR_API_KEY') {
+    const app = initializeApp(firebaseConfig);
+    db = getFirestore(app);
+  }
+} catch (e) { console.warn('Firebase init failed:', e); }
+
+// ============================================================
+//  SPA ROUTER
+// ============================================================
+function navigate(view) {
+  document.querySelectorAll('.page-view').forEach(v => v.classList.remove('active'));
+  const target = document.getElementById('view-' + view);
+  if (target) target.classList.add('active');
+  window.scrollTo(0, 0);
+  if (location.hash !== '#' + view) {
+    history.pushState({ view }, '', '#' + view);
+  }
+  if (view === 'quiz') initQuiz();
+  else if (view === 'result') renderResult();
+  else if (view === 'landing') {
+    setTimeout(() => document.getElementById('nameInput')?.focus(), 50);
+  }
+}
+window.navigate = navigate;
+
+window.addEventListener('popstate', () => {
+  const hash = location.hash.replace('#', '') || 'landing';
+  navigate(hash);
+});
+
+// ============================================================
+//  LANDING — Name input, save to DB immediately
+// ============================================================
+const nameInput = document.getElementById('nameInput');
+const startBtn = document.getElementById('startBtn');
+const startError = document.getElementById('startError');
+
+nameInput.addEventListener('input', () => {
+  startBtn.disabled = nameInput.value.trim().length < 2;
+  startError.style.display = 'none';
+});
+nameInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' && nameInput.value.trim().length >= 2) startQuiz();
+});
+startBtn.addEventListener('click', startQuiz);
+
+async function startQuiz() {
+  const name = nameInput.value.trim();
+  if (name.length < 2) return;
+
+  startBtn.disabled = true;
+  startBtn.innerHTML = '<span class="loading"></span> Saving';
+  startError.style.display = 'none';
+
+  let docId = null;
+  try {
+    if (db) {
+      // Create initial doc with just the name — updated with results later
+      const ref = await addDoc(collection(db, 'results'), {
+        name,
+        status: 'in_progress',
+        startedAt: serverTimestamp(),
+      });
+      docId = ref.id;
+    } else {
+      console.warn('Firebase not configured — proceeding in local-only mode.');
+    }
+  } catch (err) {
+    console.error('Failed to save name:', err);
+    startError.textContent = 'Could not save to database. Please check your connection and try again.';
+    startError.style.display = 'block';
+    startBtn.disabled = false;
+    startBtn.innerHTML = 'Start Assessment <span>→</span>';
+    return;
+  }
+
+  sessionStorage.setItem('holland_name', name);
+  if (docId) sessionStorage.setItem('holland_doc_id', docId);
+  else sessionStorage.removeItem('holland_doc_id');
+  sessionStorage.removeItem('holland_result');
+
+  startBtn.innerHTML = 'Start Assessment <span>→</span>';
+  navigate('quiz');
+}
+
+// ============================================================
+//  QUIZ
+// ============================================================
+let current = 0;
+let answers = [];
+let quizInitialized = false;
+
+const likertLabels = [
+  { n: 1, label: 'Strongly disagree' },
+  { n: 2, label: 'Disagree' },
+  { n: 3, label: 'Neutral' },
+  { n: 4, label: 'Agree' },
+  { n: 5, label: 'Strongly agree' },
+];
+
+function initQuiz() {
+  const name = sessionStorage.getItem('holland_name');
+  if (!name) { navigate('landing'); return; }
+
+  document.getElementById('userLabel').textContent = name;
+  current = 0;
+  answers = new Array(questions.length).fill(null);
+
+  const likertEl = document.getElementById('likert');
+  likertEl.innerHTML = likertLabels.map(l => `
+    <button class="likert-opt" data-val="${l.n}">
+      <span class="num">${l.n}</span>
+      <span>${l.label}</span>
+    </button>
+  `).join('');
+
+  if (!quizInitialized) {
+    likertEl.addEventListener('click', (e) => {
+      const opt = e.target.closest('.likert-opt');
+      if (!opt) return;
+      answers[current] = Number(opt.dataset.val);
+      updateLikertSelection();
+      document.getElementById('nextBtn').disabled = false;
+    });
+
+    document.getElementById('backBtn').addEventListener('click', () => {
+      if (current > 0) { current--; renderQuestion('back'); }
+    });
+    document.getElementById('nextBtn').addEventListener('click', async () => {
+      if (answers[current] == null) return;
+      if (current < questions.length - 1) {
+        current++;
+        renderQuestion('forward');
+      } else {
+        await finishQuiz();
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (!document.getElementById('view-quiz').classList.contains('active')) return;
+      if (['1','2','3','4','5'].includes(e.key)) {
+        answers[current] = Number(e.key);
+        updateLikertSelection();
+        document.getElementById('nextBtn').disabled = false;
+      } else if (e.key === 'ArrowLeft') {
+        const b = document.getElementById('backBtn'); if (!b.disabled) b.click();
+      } else if (e.key === 'ArrowRight' || e.key === 'Enter') {
+        const b = document.getElementById('nextBtn'); if (!b.disabled) b.click();
+      }
+    });
+    quizInitialized = true;
+  }
+
+  renderQuestion('forward');
+}
+
+function updateLikertSelection() {
+  document.querySelectorAll('#likert .likert-opt').forEach(opt => {
+    opt.classList.toggle('selected', Number(opt.dataset.val) === answers[current]);
+  });
+}
+
+function renderQuestion(direction) {
+  const q = questions[current];
+  document.getElementById('qTag').textContent = `Statement ${current + 1}`;
+  document.getElementById('qText').textContent = q.text;
+  document.getElementById('qCurrent').textContent = current + 1;
+  document.getElementById('progressFill').style.setProperty('--pct', `${((current + 1) / questions.length) * 100}%`);
+
+  updateLikertSelection();
+
+  document.getElementById('backBtn').disabled = current === 0;
+  document.getElementById('nextBtn').disabled = answers[current] == null;
+  document.getElementById('nextBtn').innerHTML = current === questions.length - 1 ? 'See results →' : 'Next →';
+
+  const qSlide = document.getElementById('qSlide');
+  qSlide.classList.remove('q-slide', 'q-slide-back');
+  void qSlide.offsetWidth;
+  qSlide.classList.add(direction === 'back' ? 'q-slide-back' : 'q-slide');
+}
+
+async function finishQuiz() {
+  const nextBtn = document.getElementById('nextBtn');
+  nextBtn.disabled = true;
+  nextBtn.innerHTML = '<span class="loading"></span> Saving';
+
+  const scores = { R: 0, I: 0, A: 0, S: 0, E: 0, C: 0 };
+  questions.forEach((q, i) => { scores[q.type] += answers[i]; });
+
+  const sorted = typeOrder
+    .map(t => ({ type: t, score: scores[t] }))
+    .sort((a, b) => b.score - a.score);
+  const topType = sorted[0].type;
+  const code = sorted.slice(0, 3).map(s => s.type).join('');
+
+  const name = sessionStorage.getItem('holland_name');
+  const docId = sessionStorage.getItem('holland_doc_id');
+
+  const resultPayload = {
+    name, scores, topType, code, answers,
+    completedAt: new Date().toISOString(),
+  };
+
+  try {
+    if (db && docId) {
+      // Update the existing in_progress doc with final results
+      await updateDoc(doc(db, 'results', docId), {
+        scores, topType, code, answers,
+        status: 'completed',
+        completedAt: serverTimestamp(),
+      });
+    }
+  } catch (err) {
+    console.error('Firestore update failed:', err);
+  }
+
+  sessionStorage.setItem('holland_result', JSON.stringify(resultPayload));
+  navigate('result');
+}
+
+// ============================================================
+//  RESULT + HEXAGON
+// ============================================================
+function buildHexagon(scores) {
+  const cx = 180, cy = 180, maxR = 130;
+  const axes = ['R', 'I', 'A', 'S', 'E', 'C'];
+  const labels = {
+    R: 'Realistic', I: 'Investigative', A: 'Artistic',
+    S: 'Social', E: 'Enterprising', C: 'Conventional'
+  };
+  const MAX_SCORE = 25;
+  const angleFor = (i) => (-90 + i * 60) * Math.PI / 180;
+  const vertex = (r, i) => {
+    const a = angleFor(i);
+    return [cx + r * Math.cos(a), cy + r * Math.sin(a)];
+  };
+
+  const gridLevels = [0.2, 0.4, 0.6, 0.8, 1.0];
+  const gridPolys = gridLevels.map((lvl, gi) => {
+    const pts = axes.map((_, i) => vertex(maxR * lvl, i).join(',')).join(' ');
+    const isOuter = gi === gridLevels.length - 1;
+    return `<polygon class="hex-grid${isOuter ? ' outer' : ''}" points="${pts}" />`;
+  }).join('');
+
+  const axisLines = axes.map((_, i) => {
+    const [x, y] = vertex(maxR, i);
+    return `<line class="hex-axis" x1="${cx}" y1="${cy}" x2="${x}" y2="${y}" />`;
+  }).join('');
+
+  const dataPts = axes.map((ax, i) => {
+    const r = (scores[ax] / MAX_SCORE) * maxR;
+    return vertex(r, i);
+  });
+  const dataPolyStr = dataPts.map(p => p.join(',')).join(' ');
+  const dataPolygon = `<polygon class="hex-data" points="${dataPolyStr}" />`;
+  const dataCircles = dataPts.map(([x, y]) =>
+    `<circle class="hex-point" cx="${x}" cy="${y}" r="4.5" />`
+  ).join('');
+
+  const labelEls = axes.map((ax, i) => {
+    const [lx, ly] = vertex(maxR + 24, i);
+    const [sx, sy] = vertex(maxR + 38, i);
+    const ang = ((-90 + i * 60) % 360 + 360) % 360;
+    let anchor = 'middle';
+    if (ang > 0 && ang < 180) anchor = 'start';
+    else if (ang > 180 && ang < 360) anchor = 'end';
+    return `
+      <text class="hex-label" x="${lx}" y="${ly}" text-anchor="${anchor}" dominant-baseline="middle">${ax}</text>
+      <text class="hex-label-sub" x="${sx}" y="${sy + 12}" text-anchor="${anchor}" dominant-baseline="middle">${labels[ax]}</text>
+    `;
+  }).join('');
+
+  return `
+    <svg class="hex-svg" viewBox="0 0 360 360" xmlns="http://www.w3.org/2000/svg">
+      ${gridPolys}
+      ${axisLines}
+      ${dataPolygon}
+      ${dataCircles}
+      ${labelEls}
+    </svg>
+  `;
+}
+
+function renderResult() {
+  const raw = sessionStorage.getItem('holland_result');
+  if (!raw) { navigate('landing'); return; }
+  const result = JSON.parse(raw);
+  const t = typeData[result.topType];
+
+  document.getElementById('dateLabel').textContent =
+    new Date(result.completedAt).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+
+  const sortedScores = typeOrder
+    .map(type => ({ type, score: result.scores[type], data: typeData[type] }))
+    .sort((a, b) => b.score - a.score);
+
+  const legendRows = sortedScores.map((s, i) => `
+    <div class="hex-legend-row ${i === 0 ? 'top' : ''}">
+      <div class="lt">${s.type}</div>
+      <div class="nm">${s.data.subtitle}</div>
+      <div class="sc">${s.score}</div>
+    </div>
+  `).join('');
+
+  const strengths = t.strengths.map(x => `<li>${x}</li>`).join('');
+  const growth = t.growth.map(x => `<li>${x}</li>`).join('');
+  const careers = t.careers.map(x => `<span class="tag">${x}</span>`).join('');
+
+  document.getElementById('resultRoot').innerHTML = `
+    <section class="result-hero-card">
+      <div class="result-hero-inner">
+        <div>
+          <div class="result-badge"><span>✦</span> ${escapeHtml(result.name)}'s Result</div>
+          <h1>${t.name}</h1>
+          <p class="tagline">${t.tagline}</p>
+          <div class="result-code-chip">
+            <span class="lbl">Holland Code</span>
+            <span class="code">${result.code}</span>
+          </div>
+        </div>
+        <div class="result-hero-visual"><div class="big-letter">${t.code}</div></div>
+      </div>
+    </section>
+
+    <section class="card card-wide" style="margin-bottom: 1.5rem;">
+      <h3>Your Holland Hexagon</h3>
+      <p style="margin-bottom: 1rem;">Your six scores plotted on the classic Holland hexagon. The further the shape extends toward a corner, the stronger that type is in you.</p>
+      <div class="hex-wrap">
+        <div class="hex-svg-wrap">${buildHexagon(result.scores)}</div>
+        <div class="hex-legend">${legendRows}</div>
+      </div>
+    </section>
+
+    <section class="result-body">
+      <div class="card">
+        <h3>About ${t.subtitle} types</h3>
+        <p>${t.description}</p>
+      </div>
+      <div class="card">
+        <h3>Careers that often fit</h3>
+        <div class="tags" style="margin-top: 0.5rem;">${careers}</div>
+      </div>
+      <div class="card">
+        <h3>Your strengths</h3>
+        <ul>${strengths}</ul>
+      </div>
+      <div class="card">
+        <h3>Areas to develop</h3>
+        <ul class="growth">${growth}</ul>
+      </div>
+    </section>
+
+    <div class="result-actions">
+      <button class="btn btn-outline" onclick="navigate('landing')">Start over</button>
+    </div>
+  `;
+}
+
+function escapeHtml(str) {
+  return String(str).replace(/[&<>"']/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
+}
+
+// Initial route
+const initialView = location.hash.replace('#', '') || 'landing';
+navigate(initialView === 'quiz' || initialView === 'result' ? 'landing' : initialView);
+</script>
+</body>
+</html>
